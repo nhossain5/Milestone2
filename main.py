@@ -57,7 +57,7 @@ class User(UserMixin, db.Model):
 class UserReview(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(1000))
-    email = db.Column(db.String(100), unique=True)
+    email = db.Column(db.String(100))
     movieID = db.Column(db.Integer)
     comment = db.Column(db.String(128))
     rating = db.Column(db.Integer)

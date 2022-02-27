@@ -3,6 +3,17 @@
 # If you want to run this locally without Heroku:
 ### Install the packages from requirements.txt in the terminal
 ### Obtain an API KEY from The Movie DB
+1.	Create a directory somewhere on your computer called hw6.
+2.	In that directory, run `git init` and `heroku create` to set up a Heroku app and git repository.
+3.	Run the command to add a database to your app: `heroku addons:create heroku-postgresql:hobby-dev`
+4.	Run `heroku config` and copy the database URL into your .env like we did in class.
+### In your main directory do the following:
+```
+git init
+heroku create
+heroku addons:create heroku-postgresql:hobby-dev
+heroku config
+```
 ### Create a .env file in the main directory
 ### Inside the .env file, put:
 ```
