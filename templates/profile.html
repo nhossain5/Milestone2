@@ -5,7 +5,8 @@
     Welcome, {{ name }}!
 </h1>
 {% for i in range(num_comments) %}
-<h4>Movie ID:<a href="https://www.themoviedb.org/movie/{{your_comments[i].movieID}}" target="_blank"><input type="submit" id="hover" value="{{your_comments[i].movieID}}" /></a></h4>
+<h4>Movie ID:<a href="https://www.themoviedb.org/movie/{{your_comments[i].movieID}}" target="_blank"><input
+            type="submit" id="hover" value="{{your_comments[i].movieID}}" /></a></h4>
 <h5>Rating:{{your_comments[i].rating}}</h4>
     <h6>{{your_comments[i].comment}} </h4>
         {% endfor %}

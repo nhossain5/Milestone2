@@ -14,10 +14,13 @@ heroku create
 heroku addons:create heroku-postgresql:hobby-dev
 heroku config
 ```
+### Copy and paste the DATABASE_URL somewhere
+### Make sure there is a 'ql' (without single quotes) after postgres
 ### Create a .env file in the main directory
 ### Inside the .env file, put:
 ```
 export TMDB_KEY='your_API_key'
+export DATABASE_URL='your_DATABASE_URL'
 ```
 ### Replace your_API_key with the API KEY you have obtained from The Movie DB
 ### Make sure to keep the apostrophes
