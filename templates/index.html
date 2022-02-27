@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+
+</head>
+
+<body>
+    {% block content %}
+    <h1>Random Popular Movie</h1>
+    {% for i in range(1) %}
+    <h2>
+        <p><b>{{ titles[i] }}</b></p>
+    </h2>
+    <a href="{{ wikilinks[i] }}" target="_blank"><input type="submit" id="hover" value="Wikipedia URL" /></a>
+    <br>
+    <img src="https://image.tmdb.org/t/p/w500{{ poster_paths[i] }}">
+    <h3>
+        <p><b>{{ taglines[i] }}</b></p>
+    </h3>
+    <h4>
+        <p><b>Genre: {{ genres[i] }}</b></p>
+    </h4>
+    <form method="POST" action="/review_added">
+        <label for="movieID">Movie ID</label>
+        <input type="text" id="movieID" name="movieID" value="{{ ids[i] }}" readonly>
+        <label for="rating">Rating (out of 10)</label>
+        <input type="number" id="rating" name="rating" min="0" max="10" required>
+        <input type="text" placeholder="Leave a comment" name="comment" required>
+        <input type="submit" id="hover" value="Submit">
+    </form>
+    <h1>See what other people said!</h1>
+    {% for i in range(num_reviews) %}
+    <!-- <h4>Movie ID:{{reviews[i].movieID}}</h4> -->
+    <h4>User:{{reviews[i].name}}</h4>
+    <h5>Rating:{{reviews[i].rating}}</h4>
+        <h6>{{reviews[i].comment}} </h4>
+            {% endfor %}
+            {% endfor %}
+            {% endblock %}
+</body>
+
+</html>
