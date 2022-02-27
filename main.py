@@ -34,11 +34,18 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    # since the user_id is just the primary key of our user table, use it in the query for the user
+    """
+    We are using the user_id to query for the user because it is the primary key of our user table
+    """
     return User.query.get(int(user_id))
 
 
 class User(UserMixin, db.Model):
+    """
+    This is our User Table
+    It has the information that we are seeking from the user
+    """
+
     id = db.Column(
         db.Integer, primary_key=True
     )  # primary keys are required by SQLAlchemy
@@ -47,14 +54,13 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(1000))
 
 
-# class Reviews(db.Model):
-# id = db.Column(db.Integer, primary_key=True)
-# movieID = db.Column(db.Integer)
-# comment = db.Column(db.String(128))
-# rating = db.Column(db.Integer)
-
-
 class UserReview(db.Model):
+    """
+    This is our UserReview Table
+    It has the same name and email as the User Table
+    Reviews from a User contain the Movie ID, comment, and rating
+    """
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(1000))
     email = db.Column(db.String(100))
@@ -68,11 +74,21 @@ db.create_all()
 
 @app.route("/login")
 def login():
+    """
+    This displays the login page
+    """
     return render_template("login.html")
 
 
 @app.route("/login", methods=["POST"])
 def login_post():
+    """
+    This method takes in information from the user
+    If the information was never used to sign up
+    Or if it is wrong
+    Then the user cannot login
+    Other than that, they can login and view the home page
+    """
     # login code goes here
     email = request.form.get("email")
     password = request.form.get("password")
@@ -81,7 +97,7 @@ def login_post():
     user = User.query.filter_by(email=email).first()
 
     # check if the user actually exists
-    # take the user-supplied password, hash it, and compare it to the hashed password in the database
+    # take the entered password, hash it, and compare it to the hashed password in the database
     if not user or not check_password_hash(user.password, password):
         flash("Please check your login details and try again.")
         return redirect(
@@ -95,11 +111,22 @@ def login_post():
 
 @app.route("/signup")
 def signup():
+    """
+    This displays the sign up page
+    """
     return render_template("signup.html")
 
 
 @app.route("/signup", methods=["POST"])
 def signup_post():
+    """
+    This method takes in information from the user
+    If the information was already used to sign up
+    Then it does not work
+    There can only be one account per email
+    If the information is new
+    Then it redirects you to the login page
+    """
     # code to validate and add user to database goes here
     email = request.form.get("email")
     name = request.form.get("name")
@@ -131,6 +158,11 @@ def signup_post():
 @app.route("/profile")
 @login_required
 def profile():
+    """
+    This displays the profile page
+    It welcomes you with your name
+    And shows you all the comments you have made since making the account
+    """
     your_comments = UserReview.query.filter_by(email=current_user.email).all()
     num_comments = len(your_comments)
     return render_template(
@@ -144,6 +176,9 @@ def profile():
 @app.route("/logout")
 @login_required
 def logout():
+    """
+    Logs out the user if they are logged in
+    """
     logout_user()
     return redirect(url_for("index"))
 
@@ -174,8 +209,12 @@ def index():
 @app.route("/review_added", methods=["GET", "POST"])
 @login_required
 def review_added():
+    """
+    This method checks if a review is already made by a user or not
+    If it is, then it adds it
+    If not, it redirects the site to a new random popular movie
+    """
     if flask.request.method == "POST":
-        data = flask.request.form
         new_user_review = UserReview(
             name=current_user.name,
             email=current_user.email,
