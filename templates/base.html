@@ -17,16 +17,16 @@
                 <div class="container">
                     <div id="navbarMenuHeroA" class="navbar-menu">
                         <div class="navbar-end">
-                            <a href="{{ url_for('index') }}"><input type="submit" id="hover" value="Home"/></a>
+                            <a href="{{ url_for('index') }}"><input type="submit" id="hover" value="Home" /></a>
                             {% if current_user.is_authenticated %}
-                            <a href="{{ url_for('profile') }}"><input type="submit" id="hover" value="Profile"/></a>
+                            <a href="{{ url_for('profile') }}"><input type="submit" id="hover" value="Profile" /></a>
                             {% endif %}
                             {% if not current_user.is_authenticated %}
-                            <a href="{{ url_for('login') }}"><input type="submit" id="hover" value="Login"/></a>
-                            <a href="{{ url_for('signup') }}"><input type="submit" id="hover" value="Sign Up"/></a>
+                            <a href="{{ url_for('login') }}"><input type="submit" id="hover" value="Login" /></a>
+                            <a href="{{ url_for('signup') }}"><input type="submit" id="hover" value="Sign Up" /></a>
                             {% endif %}
                             {% if current_user.is_authenticated %}
-                            <a href="{{ url_for('logout') }}"><input type="submit" id="hover" value="Logout"/></a>
+                            <a href="{{ url_for('logout') }}"><input type="submit" id="hover" value="Logout" /></a>
                             {% endif %}
                         </div>
                     </div>
